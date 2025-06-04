@@ -26,6 +26,8 @@ const Single = () => {
     fetchData();
   }, [id]);
 
+  console.log("test");
+
   return (
     <div className="single">
       <div className="content">
