@@ -1,37 +1,53 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import api from "../api/axios";
 
 const Home = () => {
-  const posts = [
-    {
-      id: 1,
-      title:
-        "Consectetur proident consequat adipisicing nostrud sunt aliqua cillum sint sint eu proident",
-      desc: "Consectetur proident consequat adipisicing nostrud sunt aliqua cillum sint sint eu proident",
-      img: "https://cdn.pixabay.com/photo/2012/08/25/22/22/saturn-54999_1280.jpg",
-    },
-    {
-      id: 2,
-      title:
-        "Consectetur proident consequat adipisicing nostrud sunt aliqua cillum sint sint eu proident",
-      desc: "Consectetur proident consequat adipisicing nostrud sunt aliqua cillum sint sint eu proident",
-      img: "https://cdn.pixabay.com/photo/2012/08/25/22/22/saturn-54999_1280.jpg",
-    },
-    {
-      id: 3,
-      title:
-        "Consectetur proident consequat adipisicing nostrud sunt aliqua cillum sint sint eu proident",
-      desc: "Consectetur proident consequat adipisicing nostrud sunt aliqua cillum sint sint eu proident",
-      img: "https://cdn.pixabay.com/photo/2012/08/25/22/22/saturn-54999_1280.jpg",
-    },
-    {
-      id: 4,
-      title:
-        "Consectetur proident consequat adipisicing nostrud sunt aliqua cillum sint sint eu proident",
-      desc: "Consectetur proident consequat adipisicing nostrud sunt aliqua cillum sint sint eu proident",
-      img: "https://cdn.pixabay.com/photo/2012/08/25/22/22/saturn-54999_1280.jpg",
-    },
-  ];
+  const cat = useLocation().search;
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await api.get(`/posts${cat}`);
+        setPosts(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, [cat]);
+
+  // const posts = [
+  //   {
+  //     id: 1,
+  //     title:
+  //       "Consectetur proident consequat adipisicing nostrud sunt aliqua cillum sint sint eu proident",
+  //     desc: "Consectetur proident consequat adipisicing nostrud sunt aliqua cillum sint sint eu proident",
+  //     img: "https://cdn.pixabay.com/photo/2012/08/25/22/22/saturn-54999_1280.jpg",
+  //   },
+  //   {
+  //     id: 2,
+  //     title:
+  //       "Consectetur proident consequat adipisicing nostrud sunt aliqua cillum sint sint eu proident",
+  //     desc: "Consectetur proident consequat adipisicing nostrud sunt aliqua cillum sint sint eu proident",
+  //     img: "https://cdn.pixabay.com/photo/2012/08/25/22/22/saturn-54999_1280.jpg",
+  //   },
+  //   {
+  //     id: 3,
+  //     title:
+  //       "Consectetur proident consequat adipisicing nostrud sunt aliqua cillum sint sint eu proident",
+  //     desc: "Consectetur proident consequat adipisicing nostrud sunt aliqua cillum sint sint eu proident",
+  //     img: "https://cdn.pixabay.com/photo/2012/08/25/22/22/saturn-54999_1280.jpg",
+  //   },
+  //   {
+  //     id: 4,
+  //     title:
+  //       "Consectetur proident consequat adipisicing nostrud sunt aliqua cillum sint sint eu proident",
+  //     desc: "Consectetur proident consequat adipisicing nostrud sunt aliqua cillum sint sint eu proident",
+  //     img: "https://cdn.pixabay.com/photo/2012/08/25/22/22/saturn-54999_1280.jpg",
+  //   },
+  // ];
 
   return (
     <div className="home">
